@@ -50,7 +50,7 @@ class _MTextFieldState extends State<MTextField> {
         Container(
           decoration: BoxDecoration(
             color: AppColors.white,
-            borderRadius: BorderRadius.circular(28),
+            borderRadius: BorderRadius.circular(50),
             border: Border.all(
               color: AppColors.greyLight,
               width: 1,
@@ -94,7 +94,7 @@ class _MTextFieldState extends State<MTextField> {
                 icon: SvgPicture.asset(
                   _obscureText
                       ? 'assets/icons/eye_hide.svg'
-                      : 'assets/icons/eye.svg',
+                      : 'assets/icons/eye_show.svg',
                   width: 20,
                   height: 20,
                   colorFilter: ColorFilter.mode(
@@ -109,7 +109,26 @@ class _MTextFieldState extends State<MTextField> {
                 },
               )
                   : null,
-              border: InputBorder.none,
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(50),
+                borderSide: BorderSide.none,
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(50),
+                borderSide: BorderSide.none,
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(50),
+                borderSide: BorderSide.none,
+              ),
+              errorBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(50),
+                borderSide: BorderSide.none,
+              ),
+              focusedErrorBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(50),
+                borderSide: BorderSide.none,
+              ),
               contentPadding: const EdgeInsets.symmetric(
                 horizontal: 20,
                 vertical: 16,

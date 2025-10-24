@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
+import 'package:movira/screens/authentication/profile_screen.dart';
+import 'package:movira/screens/authentication/signup_screen.dart';
 import 'package:movira/utils/constants/colors.dart';
 import 'package:movira/utils/text_style.dart';
+import 'package:movira/utils/widgets/change_password_bottom_sheet.dart';
+import 'package:movira/utils/widgets/forgot_password_bottom_sheet.dart';
 import 'package:movira/utils/widgets/my_text_box.dart';
+import 'package:movira/utils/widgets/otp_verification_bottom_sheet.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -45,11 +51,11 @@ class _LoginScreenState extends State<LoginScreen> {
                       children: [
                         TextSpan(
                           text: 'Hi, Welcome Back! ',
-                          style: AppTextStyles.h1,
+                          style: AppTextStyles.h4,
                         ),
                         const TextSpan(
                           text: '👋',
-                          style: TextStyle(fontSize: 32),
+                          style: TextStyle(fontSize: 20),
                         ),
                       ],
                     ),
@@ -59,17 +65,17 @@ class _LoginScreenState extends State<LoginScreen> {
 
                   Text(
                     'Glad to see you again.',
-                    style: AppTextStyles.h1,
+                    style: AppTextStyles.h4,
                   ),
 
-                  const SizedBox(height: 16),
+                  const SizedBox(height: 12),
 
                   Text(
                     'Enter your login information to continue',
                     style: AppTextStyles.bodyMedium,
                   ),
 
-                  const SizedBox(height: 40),
+                  const SizedBox(height: 20),
 
                   // Email Field
                   MTextField(
@@ -144,8 +150,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       TextButton(
                         onPressed: () {
-                          // Navigate to forgot password
-                          // Get.toNamed(Routes.forgotPassword);
+                          ForgotPasswordBottomSheet.show(context);
                         },
                         child: Text(
                           'Forgot password?',
@@ -167,10 +172,11 @@ class _LoginScreenState extends State<LoginScreen> {
                     height: 56,
                     child: ElevatedButton(
                       onPressed: () {
-                        if (_formKey.currentState!.validate()) {
-                          // Handle login
-                          // Get.toNamed(Routes.home);
-                        }
+                        Get.to(ProfileScreen());
+                        // if (_formKey.currentState!.validate()) {
+                        //   // Handle login
+                        //
+                        // }
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: AppColors.primary,
@@ -224,6 +230,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         child: OutlinedButton(
                           onPressed: () {
                             // Handle Facebook login
+                            ChangePasswordBottomSheet.show(context);
                           },
                           style: OutlinedButton.styleFrom(
                             padding: const EdgeInsets.symmetric(vertical: 16),
@@ -263,7 +270,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         child: OutlinedButton(
                           onPressed: () {
                             // Handle guest login
-                            // Get.toNamed(Routes.home);
+                            OtpVerificationBottomSheet.show(context);
                           },
                           style: OutlinedButton.styleFrom(
                             padding: const EdgeInsets.symmetric(vertical: 16),
@@ -318,7 +325,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         TextButton(
                           onPressed: () {
                             // Navigate to register
-                            // Get.toNamed(Routes.register);
+                             Get.to(SignupScreen());
                           },
                           style: TextButton.styleFrom(
                             padding: EdgeInsets.zero,

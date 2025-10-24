@@ -105,12 +105,16 @@ class _IntroScreenState extends State<IntroScreen> {
                           // Navigate to register
                           // Get.offAllNamed(Routes.register);
                         } else {
-                          // Skip to last page or login
-                          // Get.offAllNamed(Routes.login);
+                          // Skip to last page
+                          _pageController.animateToPage(
+                            _pages.length - 1,
+                            duration: const Duration(milliseconds: 300),
+                            curve: Curves.easeInOut,
+                          );
                         }
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor:AppColors.primary , // Yellow
+                        backgroundColor: AppColors.primary, // Yellow
                         foregroundColor: AppColors.black,
                         elevation: 0,
                         shape: RoundedRectangleBorder(
