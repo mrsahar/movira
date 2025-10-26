@@ -1,5 +1,6 @@
 import 'package:movira/routes/route_observer.dart';
 import 'package:movira/routes/routes.dart';
+import 'package:movira/screens/home/main_screen.dart';
 import 'package:movira/screens/static/intro_screen.dart';
 import 'package:get/get.dart';
 
@@ -18,6 +19,11 @@ class AppPages {
     GetPage(
       name: Routes.intro,
       page: () => const IntroScreen(),
+      transition: Transition.fadeIn,
+    ),
+    GetPage(
+      name: Routes.mainScreen,
+      page: () => const MainNavigationScreen(),
       transition: Transition.fadeIn,
     ),
 

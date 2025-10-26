@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:movira/screens/home/main_screen.dart';
 import 'package:movira/screens/home/settings_screen.dart';
 import 'package:movira/utils/constants/colors.dart';
 import 'package:movira/utils/text_style.dart';
 
-class ProfileCompletedScreen extends StatelessWidget {
-  const ProfileCompletedScreen({super.key});
+class RatingSubmittedScreen extends StatelessWidget {
+  const RatingSubmittedScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +29,7 @@ class ProfileCompletedScreen extends StatelessWidget {
 
                 // Title
                 Text(
-                  'Profile Completed',
+                  'Rating Submitted',
                   style: AppTextStyles.h3,
                   textAlign: TextAlign.center,
                 ),
@@ -38,12 +37,15 @@ class ProfileCompletedScreen extends StatelessWidget {
                 const SizedBox(height: 16),
 
                 // Description
-                Text(
-                  'Congratulation, your profile setup is completed.\nYou can access your account now.',
-                  style: AppTextStyles.bodyMedium.copyWith(
-                    color: AppColors.textSecondary,
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Text(
+                    'Rating and review submitted successfully. Thank you for your feedback!',
+                    style: AppTextStyles.bodyMedium.copyWith(
+                      color: AppColors.textSecondary,
+                    ),
+                    textAlign: TextAlign.center,
                   ),
-                  textAlign: TextAlign.center,
                 ),
 
                 const Spacer(),
@@ -55,7 +57,8 @@ class ProfileCompletedScreen extends StatelessWidget {
                   child: ElevatedButton(
                     onPressed: () {
                       // Navigate to home screen
-                       Get.to(MainNavigationScreen());
+                      // Get.offAllNamed(Routes.home);
+                      Get.off(SettingsScreen());
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: AppColors.primary,

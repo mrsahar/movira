@@ -153,14 +153,14 @@ class _ForgotPasswordBottomSheetState extends State<ForgotPasswordBottomSheet> {
     );
   }
 
-  static void show(BuildContext context) {
-    showModalBottomSheet(
-      context: context,
-      isScrollControlled: true,
-      backgroundColor: Colors.transparent,
-      builder: (context) => const ForgotPasswordBottomSheet(),
-    );
-  }
+  // static void show(BuildContext context) {
+  //   showModalBottomSheet(
+  //     context: context,
+  //     isScrollControlled: true,
+  //     backgroundColor: Colors.transparent,
+  //     builder: (context) => const ForgotPasswordBottomSheet(),
+  //   );
+  // }
 
 }
 

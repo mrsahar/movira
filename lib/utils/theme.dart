@@ -106,7 +106,7 @@ class AppTheme {
         color: AppColors.textPrimary,
       ),
       headlineMedium: GoogleFonts.outfit(
-        fontSize: 20,
+        fontSize: 18,
         fontWeight: FontWeight.w600,
         color: AppColors.textPrimary,
       ),

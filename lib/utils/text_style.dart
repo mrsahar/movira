@@ -25,7 +25,7 @@ class AppTextStyles {
   );
 
   static TextStyle h4 = GoogleFonts.outfit(
-    fontSize: 20,
+    fontSize: 18,
     fontWeight: FontWeight.w600,
     color: AppColors.textPrimary,
   );

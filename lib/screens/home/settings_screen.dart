@@ -1,7 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
+import 'package:movira/screens/authentication/profile_screen.dart';
+import 'package:movira/screens/messages/chat_screen.dart';
+import 'package:movira/screens/payment/payment_method_screen.dart';
+import 'package:movira/screens/review/rating_screen.dart';
+import 'package:movira/screens/static/contact_us_screen.dart';
+import 'package:movira/screens/static/privacy_policy_screen.dart';
+import 'package:movira/screens/static/terms_conditions_screen.dart';
 import 'package:movira/utils/constants/colors.dart';
 import 'package:movira/utils/text_style.dart';
+import 'package:movira/utils/widgets/Delete_account_bottom_sheet.dart';
+import 'package:movira/utils/widgets/logout_bottom_sheet.dart';
 import 'package:movira/utils/widgets/my_app_bar.dart';
 
 class SettingsScreen extends StatelessWidget {
@@ -13,7 +23,7 @@ class SettingsScreen extends StatelessWidget {
       backgroundColor: AppColors.white,
       appBar: const MAppBar(
         title: 'Settings',
-        showBackButton: false,
+        showBackButton: true,
       ),
       body: Container(
         width: double.infinity,
@@ -33,12 +43,13 @@ class SettingsScreen extends StatelessWidget {
 
                 // Profile Card
                 _buildProfileCard(
-                  profileImage: 'assets/images/profile_user.png', // Add your profile image
+                  profileImage: 'assets/images/profile_user.png',
+                  // Add your profile image
                   name: 'Brooklyn Simmons',
                   email: 'nathan.roberts@example.com',
                   onTap: () {
                     // Navigate to profile edit
-                    // Get.toNamed(Routes.editProfile);
+                    Get.to(ProfileScreen());
                   },
                 ),
 
@@ -62,6 +73,7 @@ class SettingsScreen extends StatelessWidget {
                   title: 'Rate Us',
                   onTap: () {
                     // Open app store rating
+                    Get.to(RatingReviewScreen());
                   },
                 ),
 
@@ -73,6 +85,7 @@ class SettingsScreen extends StatelessWidget {
                   title: 'Contact Us',
                   onTap: () {
                     // Navigate to contact us
+                    Get.to(ContactUsScreen());
                   },
                 ),
 
@@ -85,6 +98,7 @@ class SettingsScreen extends StatelessWidget {
                   onTap: () {
                     // Show change password bottom sheet
                     // ChangePasswordBottomSheet.show(context);
+                    Get.to(MessageScreen());
                   },
                 ),
 
@@ -97,6 +111,7 @@ class SettingsScreen extends StatelessWidget {
                   onTap: () {
                     // Navigate to payment method
                     // Get.toNamed(Routes.paymentMethod);
+                    Get.to(PaymentMethodScreen());
                   },
                 ),
 
@@ -108,6 +123,7 @@ class SettingsScreen extends StatelessWidget {
                   title: 'Privacy Policy',
                   onTap: () {
                     // Navigate to privacy policy
+                    Get.to(PrivacyPolicyScreen());
                   },
                 ),
 
@@ -119,6 +135,7 @@ class SettingsScreen extends StatelessWidget {
                   title: 'Terms & Conditions',
                   onTap: () {
                     // Navigate to terms
+                    Get.to(TermsConditionsScreen());
                   },
                 ),
 
@@ -131,6 +148,7 @@ class SettingsScreen extends StatelessWidget {
                   onTap: () {
                     // Show delete confirmation dialog
                     //_showDeleteAccountDialog(context);
+                    DeleteAccountBottomSheet.show(context);
                   },
                 ),
 
@@ -141,17 +159,18 @@ class SettingsScreen extends StatelessWidget {
                   width: double.infinity,
                   height: 56,
                   decoration: BoxDecoration(
-                    color: AppColors.red.withValues(alpha: 0.15), // Light peachy/pink background
+                    color: AppColors.red.withValues(alpha: 0.15),
+                    // Light peachy/pink background
                     borderRadius: BorderRadius.circular(12),
                     border: Border.all(
                       color: AppColors.red, // Coral red border
-                      width: 2,
+                      width: 1,
                     ),
                   ),
                   child: TextButton(
                     onPressed: () {
                       // Show logout confirmation
-                      _showLogoutDialog(context);
+                      LogoutBottomSheet.show(context);
                     },
                     style: TextButton.styleFrom(
                       shape: RoundedRectangleBorder(
@@ -169,7 +188,7 @@ class SettingsScreen extends StatelessWidget {
                   ),
                 ),
 
-                const SizedBox(height: 24),
+                const SizedBox(height: 100),
               ],
             ),
           ),
@@ -193,7 +212,7 @@ class SettingsScreen extends StatelessWidget {
           borderRadius: BorderRadius.circular(16),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.05),
+              color: Colors.black.withValues(alpha: 0.05),
               blurRadius: 10,
               offset: const Offset(0, 2),
             ),
@@ -259,7 +278,7 @@ class SettingsScreen extends StatelessWidget {
           borderRadius: BorderRadius.circular(16),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.05),
+              color: Colors.black.withValues(alpha: 0.05),
               blurRadius: 10,
               offset: const Offset(0, 2),
             ),
@@ -312,49 +331,4 @@ class SettingsScreen extends StatelessWidget {
       ),
     );
   }
-
-  void _showLogoutDialog(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        backgroundColor: AppColors.white,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16),
-        ),
-        title: Text(
-          'Logout',
-          style: AppTextStyles.h4,
-        ),
-        content: Text(
-          'Are you sure you want to logout?',
-          style: AppTextStyles.bodyMedium,
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: Text(
-              'Cancel',
-              style: AppTextStyles.bodyMedium.copyWith(
-                color: AppColors.textSecondary,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-          ),
-          TextButton(
-            onPressed: () {
-              Navigator.pop(context);
-              // Handle logout
-              // Get.offAllNamed(Routes.login);
-            },
-            child: Text(
-              'Logout',
-              style: AppTextStyles.bodyMedium.copyWith(
-                color: Colors.red,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }}
+}

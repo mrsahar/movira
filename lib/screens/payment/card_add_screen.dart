@@ -29,7 +29,7 @@ class _CardAddScreenState extends State<CardAddScreen> {
     super.dispose();
   }
 
-  String _formatCardNumber(String value) {
+  String formatCardNumber(String value) {
     // Remove all spaces
     value = value.replaceAll(' ', '');
 
@@ -44,7 +44,7 @@ class _CardAddScreenState extends State<CardAddScreen> {
     return formatted;
   }
 
-  String _formatExpirationDate(String value) {
+  String formatExpirationDate(String value) {
     // Remove all slashes
     value = value.replaceAll('/', '');
 

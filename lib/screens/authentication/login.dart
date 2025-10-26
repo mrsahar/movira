@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:movira/screens/authentication/profile_screen.dart';
+import 'package:movira/screens/authentication/edit_profile_screen.dart';
 import 'package:movira/screens/authentication/signup_screen.dart';
 import 'package:movira/utils/constants/colors.dart';
 import 'package:movira/utils/text_style.dart';
@@ -55,7 +55,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                         const TextSpan(
                           text: '👋',
-                          style: TextStyle(fontSize: 20),
+                          style: TextStyle(fontSize: 18),
                         ),
                       ],
                     ),
@@ -172,7 +172,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     height: 56,
                     child: ElevatedButton(
                       onPressed: () {
-                        Get.to(ProfileScreen());
+                        Get.to(EditProfileScreen());
                         // if (_formKey.currentState!.validate()) {
                         //   // Handle login
                         //
