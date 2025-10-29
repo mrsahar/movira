@@ -193,7 +193,7 @@ class RideDetailScreen extends StatelessWidget {
                         'Ratings & Review Given',
                         style: AppTextStyles.bodyLarge.copyWith(
                           fontWeight: FontWeight.w600,
-                          fontSize: 15,
+                          fontSize: 14,
                         ),
                       ),
                       const SizedBox(height: 12),

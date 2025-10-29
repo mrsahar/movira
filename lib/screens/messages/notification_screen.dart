@@ -192,7 +192,7 @@ class NotificationScreen extends StatelessWidget {
                         notification['title'],
                         style: AppTextStyles.bodyLarge.copyWith(
                           fontWeight: FontWeight.w600,
-                          fontSize: 15,
+                          fontSize: 14,
                         ),
                       ),
                     ),

@@ -1,23 +1,38 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:geocoding/geocoding.dart';
+import 'package:movira/screens/review/rating_screen.dart';
+import 'package:movira/screens/ridebooking/widgets/confirmation_bottom_sheet.dart';
 import 'package:movira/screens/ridebooking/widgets/destination_bottom_sheet.dart';
+import 'package:movira/screens/ridebooking/widgets/destination_reached_bottom_sheet.dart';
+import 'package:movira/screens/ridebooking/widgets/driver_arriving_bottom_sheet.dart';
+import 'package:movira/screens/ridebooking/widgets/finding_driver_bottom_sheet.dart';
 import 'package:movira/screens/ridebooking/widgets/pickup_bottom_sheet.dart';
+import 'package:movira/screens/ridebooking/widgets/sos_bottom_sheet.dart';
+import 'package:movira/screens/ridebooking/widgets/trip_progress_bottom_sheet.dart';
 import 'package:movira/screens/ridebooking/widgets/type_select_bottom_sheet.dart';
 import 'package:movira/utils/constants/colors.dart';
 import 'package:movira/utils/text_style.dart';
 import 'package:movira/utils/map_theme.dart';
+import 'package:movira/utils/widgets/my_app_bar.dart';
 
 // Bottom Sheet Types Enum
 enum BottomSheetType {
   pickup,
   destination,
   typeSelection,
+  confirmation,
+  findingDriver,
+  driverArriving,
+  tripProgress,
+  sos,
+  destinationReached,
   // TODO: Add more bottom sheet types here as needed
-  // payment,
-  // rideDetails,
-  // driverInfo,
+  // rating,
+  // paymentDetails,
+  // tripHistory,
   // etc.
 }
 
@@ -49,6 +64,11 @@ class _RideBookingScreenState extends State<RideBookingScreen> {
   // Addresses
   String? _pickupAddress;
   String? _destinationAddress;
+
+  // Booking details
+  String _selectedCarType = 'Mini Car';
+  double _baseFare = 95.0;
+  double _platformCharges = 5.0;
 
   @override
   void initState() {
@@ -284,11 +304,13 @@ class _RideBookingScreenState extends State<RideBookingScreen> {
       } else if (_currentBottomSheet == BottomSheetType.destination) {
         _currentBottomSheet = BottomSheetType.typeSelection;
         _showSearchResults = false;
+      } else if (_currentBottomSheet == BottomSheetType.typeSelection) {
+        _currentBottomSheet = BottomSheetType.confirmation;
+      } else if (_currentBottomSheet == BottomSheetType.confirmation) {
+        _currentBottomSheet = BottomSheetType.findingDriver;
+        _simulateFindingDriver();
       }
       // TODO: Add more bottom sheet navigation logic here
-      // else if (_currentBottomSheet == BottomSheetType.typeSelection) {
-      //   _currentBottomSheet = BottomSheetType.payment;
-      // }
     });
   }
 
@@ -301,11 +323,10 @@ class _RideBookingScreenState extends State<RideBookingScreen> {
       } else if (_currentBottomSheet == BottomSheetType.typeSelection) {
         _currentBottomSheet = BottomSheetType.destination;
         _showSearchResults = false;
+      } else if (_currentBottomSheet == BottomSheetType.confirmation) {
+        _currentBottomSheet = BottomSheetType.typeSelection;
       }
       // TODO: Add more bottom sheet navigation logic here
-      // else if (_currentBottomSheet == BottomSheetType.payment) {
-      //   _currentBottomSheet = BottomSheetType.typeSelection;
-      // }
     });
   }
 
@@ -317,26 +338,48 @@ class _RideBookingScreenState extends State<RideBookingScreen> {
     });
   }
 
+  // Simulate finding driver
+  void _simulateFindingDriver() {
+    Future.delayed(const Duration(seconds: 3), () {
+      if (mounted && _currentBottomSheet == BottomSheetType.findingDriver) {
+        setState(() {
+          _currentBottomSheet = BottomSheetType.driverArriving;
+        });
+        _simulateDriverArrival();
+      }
+    });
+  }
+
+  // Simulate driver arrival to trip start
+  void _simulateDriverArrival() {
+    Future.delayed(const Duration(seconds: 5), () {
+      if (mounted && _currentBottomSheet == BottomSheetType.driverArriving) {
+        setState(() {
+          _currentBottomSheet = BottomSheetType.tripProgress;
+        });
+        _simulateTripCompletion();
+      }
+    });
+  }
+
+  // Simulate trip completion
+  void _simulateTripCompletion() {
+    Future.delayed(const Duration(seconds: 10), () {
+      if (mounted && _currentBottomSheet == BottomSheetType.tripProgress) {
+        setState(() {
+          _currentBottomSheet = BottomSheetType.destinationReached;
+        });
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.white,
-      appBar: AppBar(
-        backgroundColor: AppColors.white,
-        elevation: 0,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: AppColors.black, size: 22),
-          onPressed: () => Navigator.pop(context),
-        ),
-        centerTitle: true,
-        title: Text(
-          'Ride Booking',
-          style: AppTextStyles.custom(
-            fontSize: 16,
-            fontWeight: FontWeight.w600,
-            color: AppColors.black,
-          ),
-        ),
+      appBar: const MAppBar(
+        title: 'Ride Booking',
+        showBackButton: true,
       ),
       body: Stack(
         children: [
@@ -348,13 +391,14 @@ class _RideBookingScreenState extends State<RideBookingScreen> {
             ),
           )
               : GoogleMap(
+            style: lightMapTheme, // Use style parameter instead of setMapStyle
             initialCameraPosition: CameraPosition(
               target: _currentPosition,
-              zoom: 15,
+              zoom: 14.0,
             ),
             onMapCreated: (GoogleMapController controller) {
               _mapController = controller;
-              _mapController?.setMapStyle(lightMapTheme);
+              // Removed deprecated setMapStyle call
             },
             markers: _markers,
             myLocationEnabled: false,
@@ -374,38 +418,48 @@ class _RideBookingScreenState extends State<RideBookingScreen> {
           ),
 
           // My Location Button
-          Positioned(
-            right: 16,
-            bottom: 220,
-            child: Container(
-              width: 40,
-              height: 40,
-              decoration: BoxDecoration(
-                color: AppColors.white,
-                borderRadius: BorderRadius.circular(8),
-                boxShadow: [
-                  BoxShadow(
-                    color: AppColors.black.withOpacity(0.1),
-                    blurRadius: 4,
-                    offset: const Offset(0, 2),
-                  ),
-                ],
-              ),
-              child: IconButton(
-                padding: EdgeInsets.zero,
-                icon: const Icon(
-                  Icons.my_location,
-                  color: AppColors.black,
-                  size: 20,
+          if (_currentBottomSheet == BottomSheetType.pickup ||
+              _currentBottomSheet == BottomSheetType.destination)
+            Positioned(
+              right: 16,
+              top: 20,
+              child: Container(
+                width: 40,
+                height: 40,
+                decoration: BoxDecoration(
+                  color: AppColors.white,
+                  borderRadius: BorderRadius.circular(8),
+                  boxShadow: [
+                    BoxShadow(
+                      color: AppColors.black.withOpacity(0.1),
+                      blurRadius: 4,
+                      offset: const Offset(0, 2),
+                    ),
+                  ],
                 ),
-                onPressed: () {
-                  _mapController?.animateCamera(
-                    CameraUpdate.newLatLngZoom(_currentPosition, 15),
-                  );
-                },
+                child: IconButton(
+                  padding: EdgeInsets.zero,
+                  icon: const Icon(
+                    Icons.my_location,
+                    color: AppColors.black,
+                    size: 20,
+                  ),
+                  onPressed: () async {
+                    await _mapController!.animateCamera(
+                      CameraUpdate.newLatLngZoom(_currentPosition, 12),
+                    );
+
+                    // Small delay for effect
+                    await Future.delayed(Duration(milliseconds: 300));
+
+                    // Zoom back in
+                    await _mapController!.animateCamera(
+                      CameraUpdate.newLatLngZoom(_currentPosition, 14),
+                    );
+                  },
+                ),
               ),
             ),
-          ),
         ],
       ),
     );
@@ -414,62 +468,147 @@ class _RideBookingScreenState extends State<RideBookingScreen> {
   // Build current bottom sheet based on state
   Widget _buildCurrentBottomSheet() {
     switch (_currentBottomSheet) {
+    // 1. Pickup Location Selection
       case BottomSheetType.pickup:
         return PickupBottomSheet(
           searchController: _pickupSearchController,
           onSearchChanged: _searchLocation,
-          onConfirm: _goToNextBottomSheet, // Go to destination
+          onConfirm: _goToNextBottomSheet,
           searchResults: _searchResults,
           onResultTap: _selectSearchResult,
           showSearchResults: _showSearchResults,
         );
 
+    // 2. Destination Selection
       case BottomSheetType.destination:
         return DestinationBottomSheet(
           searchController: _destinationSearchController,
           onSearchChanged: _searchLocation,
-          onConfirm: _goToNextBottomSheet, // Go to type selection
+          onConfirm: _goToNextBottomSheet,
           searchResults: _searchResults,
           onResultTap: _selectSearchResult,
           showSearchResults: _showSearchResults,
         );
 
+    // 3. Type Selection (Ride/Package + Car Type)
       case BottomSheetType.typeSelection:
         return TypeSelectionBottomSheet(
           pickupAddress: _pickupAddress,
           dropOffAddress: _destinationAddress,
           onPickupTap: () => _switchToBottomSheet(BottomSheetType.pickup),
           onDropOffTap: () => _switchToBottomSheet(BottomSheetType.destination),
-          onConfirm: () {
-            // Final confirmation
-            Navigator.pop(context, {
-              'pickup': _pickupPosition,
-              'destination': _destinationPosition,
-              'pickupAddress': _pickupAddress,
-              'destinationAddress': _destinationAddress,
+          onConfirm: _goToNextBottomSheet,
+        );
+
+    // 4. Confirmation Screen
+      case BottomSheetType.confirmation:
+        return ConfirmationBottomSheet(
+          pickupAddress: _pickupAddress ?? 'Unknown Location',
+          dropOffAddress: _destinationAddress ?? 'Unknown Location',
+          carType: _selectedCarType,
+          baseFare: _baseFare,
+          platformCharges: _platformCharges,
+          onConfirm: _goToNextBottomSheet,
+        );
+
+    // 5. Finding Driver
+      case BottomSheetType.findingDriver:
+        return FindingDriverBottomSheet(
+          pickupAddress: _pickupAddress ?? 'Unknown Location',
+          dropOffAddress: _destinationAddress ?? 'Unknown Location',
+          estimatedTime: '30 mins',
+          distance: '14.2 KM',
+          baseFare: _baseFare,
+          platformCharges: _platformCharges,
+          onCancel: () {
+            setState(() {
+              _currentBottomSheet = BottomSheetType.typeSelection;
             });
           },
         );
 
-    // TODO: Add more bottom sheet cases here
-    // case BottomSheetType.payment:
-    //   return PaymentBottomSheet(
-    //     onConfirm: _goToNextBottomSheet,
-    //     onBack: _goToPreviousBottomSheet,
-    //   );
+    // 6. Driver Arriving
+      case BottomSheetType.driverArriving:
+        return DriverArrivingBottomSheet(
+          driverName: 'Marvin McKinney',
+          driverImage: 'assets/images/driver.png',
+          rating: 4.5,
+          carModel: 'Chevrolet Tornado',
+          carPlate: 'ES-345-LJ5',
+          arrivalTime: '5 minutes',
+          approximatePrice: _baseFare + _platformCharges,
+          onMessage: () {
+            print('Message driver');
+            // TODO: Implement messaging
+          },
+          onCall: () {
+            print('Call driver');
+            // TODO: Implement calling
+          },
+        );
 
-    // case BottomSheetType.rideDetails:
-    //   return RideDetailsBottomSheet(
-    //     onConfirm: _goToNextBottomSheet,
-    //     onBack: _goToPreviousBottomSheet,
-    //   );
+    // 7. Trip in Progress
+      case BottomSheetType.tripProgress:
+        return TripProgressBottomSheet(
+          driverName: 'Marvin McKinney',
+          driverImage: 'assets/images/driver.png',
+          rating: 4.5,
+          carModel: 'Chevrolet Tornado',
+          carPlate: 'ES-345-LJ5',
+          approximatePrice: _baseFare + _platformCharges,
+          onMessage: () {
+            print('Message driver');
+          },
+          onCall: () {
+            print('Call driver');
+          },
+          onEmergencySOS: () {
+            _switchToBottomSheet(BottomSheetType.sos);
+          },
+        );
 
-    // case BottomSheetType.driverInfo:
-    //   return DriverInfoBottomSheet(
-    //     onConfirm: () {
-    //       // Complete booking
-    //     },
-    //   );
+    // 8. Emergency SOS
+      case BottomSheetType.sos:
+        return SosBottomSheet(
+          onCall911: () {
+            print('Calling 911...');
+            // TODO: Implement emergency call
+          },
+          onShareLocation: () {
+            print('Sharing live location...');
+            // TODO: Implement location sharing
+          },
+          onAlertSupport: () {
+            print('Alerting Movira support...');
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text('Support team has been alerted!'),
+                backgroundColor: AppColors.green,
+              ),
+            );
+            // Go back to trip progress
+            setState(() {
+              _currentBottomSheet = BottomSheetType.tripProgress;
+            });
+          },
+        );
+
+    // 9. Destination Reached
+      case BottomSheetType.destinationReached:
+        return DestinationReachedBottomSheet(
+          driverName: 'Marvin McKinney',
+          driverImage: 'assets/images/driver.png',
+          rating: 4.5,
+          carModel: 'Chevrolet Tornado',
+          carPlate: 'ES-345-LJ5',
+          approximatePrice: _baseFare + _platformCharges,
+          onRateExperience: () {
+            print('Rate experience tapped');
+            // TODO: Navigate to rating screen
+            Get.to(RatingReviewScreen());
+          },
+        );
+ 
 
       default:
         return PickupBottomSheet(

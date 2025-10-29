@@ -31,20 +31,20 @@ class _TypeSelectionBottomSheetState extends State<TypeSelectionBottomSheet> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.all(16),
+      margin: const EdgeInsets.all(12), // Reduced from 16
       decoration: BoxDecoration(
         color: AppColors.white,
-        borderRadius: BorderRadius.circular(24),
+        borderRadius: BorderRadius.circular(20), // Reduced from 24
         boxShadow: [
           BoxShadow(
             color: AppColors.black.withOpacity(0.08),
-            blurRadius: 16,
-            offset: const Offset(0, -4),
+            blurRadius: 12, // Reduced from 16
+            offset: const Offset(0, -3), // Reduced from -4
           ),
         ],
       ),
       child: Padding(
-        padding: const EdgeInsets.all(20),
+        padding: const EdgeInsets.all(16), // Reduced from 20
         child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -53,38 +53,38 @@ class _TypeSelectionBottomSheetState extends State<TypeSelectionBottomSheet> {
             Text(
               'Pickup & Drop Location',
               style: AppTextStyles.custom(
-                fontSize: 18,
+                fontSize: 14, // Reduced from 18
                 fontWeight: FontWeight.bold,
                 color: AppColors.black,
               ),
             ),
-            const SizedBox(height: 16),
+            const SizedBox(height: 12), // Reduced from 16
 
             // Location Selection
             _buildLocationSection(),
 
-            const SizedBox(height: 20),
+            const SizedBox(height: 14), // Reduced from 20
 
             // Ride/Package Toggle
             _buildTypeToggle(),
 
-            const SizedBox(height: 20),
+            const SizedBox(height: 14), // Reduced from 20
 
             // Choose Preference
             Text(
               'Choose Preference',
               style: AppTextStyles.custom(
-                fontSize: 16,
+                fontSize: 13, // Reduced from 16
                 fontWeight: FontWeight.bold,
                 color: AppColors.black,
               ),
             ),
-            const SizedBox(height: 12),
+            const SizedBox(height: 10), // Reduced from 12
 
             // Car Options
             _buildCarOptions(),
 
-            const SizedBox(height: 20),
+            const SizedBox(height: 14), // Reduced from 20
 
             // Confirm Button
             SizedBox(
@@ -94,17 +94,17 @@ class _TypeSelectionBottomSheetState extends State<TypeSelectionBottomSheet> {
                 style: ElevatedButton.styleFrom(
                   backgroundColor: AppColors.primary,
                   foregroundColor: AppColors.black,
-                  padding: const EdgeInsets.symmetric(vertical: 16),
+                  padding: const EdgeInsets.symmetric(vertical: 12), // Reduced from 16
                   elevation: 0,
                   shadowColor: Colors.transparent,
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30),
+                    borderRadius: BorderRadius.circular(25), // Reduced from 30
                   ),
                 ),
                 child: Text(
                   'Confirm',
                   style: AppTextStyles.custom(
-                    fontSize: 16,
+                    fontSize: 13, // Reduced from 16
                     fontWeight: FontWeight.bold,
                     color: AppColors.black,
                   ),
@@ -119,10 +119,10 @@ class _TypeSelectionBottomSheetState extends State<TypeSelectionBottomSheet> {
 
   Widget _buildLocationSection() {
     return Container(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(12), // Reduced from 16
       decoration: BoxDecoration(
         color: AppColors.background,
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(12), // Reduced from 16
       ),
       child: Row(
         children: [
@@ -131,23 +131,23 @@ class _TypeSelectionBottomSheetState extends State<TypeSelectionBottomSheet> {
             children: [
               SvgPicture.asset(
                 'assets/icons/bold_location.svg',
-                width: 20,
-                height: 20,
+                width: 16, // Reduced from 20
+                height: 16, // Reduced from 20
                 colorFilter: const ColorFilter.mode(
                   AppColors.black,
                   BlendMode.srcIn,
                 ),
               ),
               Container(
-                width: 2,
-                height: 30,
-                margin: const EdgeInsets.symmetric(vertical: 4),
+                width: 1.5, // Reduced from 2
+                height: 24, // Reduced from 30
+                margin: const EdgeInsets.symmetric(vertical: 3), // Reduced from 4
                 color: AppColors.greyLight,
               ),
               SvgPicture.asset(
                 'assets/icons/bold_gps.svg',
-                width: 20,
-                height: 20,
+                width: 16, // Reduced from 20
+                height: 16, // Reduced from 20
                 colorFilter: const ColorFilter.mode(
                   AppColors.black,
                   BlendMode.srcIn,
@@ -155,7 +155,7 @@ class _TypeSelectionBottomSheetState extends State<TypeSelectionBottomSheet> {
               ),
             ],
           ),
-          const SizedBox(width: 12),
+          const SizedBox(width: 10), // Reduced from 12
 
           // Text Column
           Expanded(
@@ -166,12 +166,12 @@ class _TypeSelectionBottomSheetState extends State<TypeSelectionBottomSheet> {
                   onTap: widget.onPickupTap,
                   child: Container(
                     padding: const EdgeInsets.symmetric(
-                      horizontal: 12,
-                      vertical: 10,
+                      horizontal: 10, // Reduced from 12
+                      vertical: 8, // Reduced from 10
                     ),
                     decoration: BoxDecoration(
                       color: AppColors.white,
-                      borderRadius: BorderRadius.circular(8),
+                      borderRadius: BorderRadius.circular(6), // Reduced from 8
                     ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -180,7 +180,7 @@ class _TypeSelectionBottomSheetState extends State<TypeSelectionBottomSheet> {
                           child: Text(
                             widget.pickupAddress ?? 'Choose Pickup Location',
                             style: AppTextStyles.custom(
-                              fontSize: 13,
+                              fontSize: 11, // Reduced from 13
                               fontWeight: FontWeight.w400,
                               color: widget.pickupAddress != null
                                   ? AppColors.black
@@ -192,8 +192,8 @@ class _TypeSelectionBottomSheetState extends State<TypeSelectionBottomSheet> {
                         ),
                         SvgPicture.asset(
                           'assets/icons/location_pin.svg',
-                          width: 16,
-                          height: 16,
+                          width: 14, // Reduced from 16
+                          height: 14, // Reduced from 16
                           colorFilter: const ColorFilter.mode(
                             AppColors.black,
                             BlendMode.srcIn,
@@ -203,19 +203,19 @@ class _TypeSelectionBottomSheetState extends State<TypeSelectionBottomSheet> {
                     ),
                   ),
                 ),
-                const SizedBox(height: 8),
+                const SizedBox(height: 6), // Reduced from 8
 
                 // Drop-off Location
                 InkWell(
                   onTap: widget.onDropOffTap,
                   child: Container(
                     padding: const EdgeInsets.symmetric(
-                      horizontal: 12,
-                      vertical: 10,
+                      horizontal: 10, // Reduced from 12
+                      vertical: 8, // Reduced from 10
                     ),
                     decoration: BoxDecoration(
                       color: AppColors.white,
-                      borderRadius: BorderRadius.circular(8),
+                      borderRadius: BorderRadius.circular(6), // Reduced from 8
                     ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -225,7 +225,7 @@ class _TypeSelectionBottomSheetState extends State<TypeSelectionBottomSheet> {
                             widget.dropOffAddress ??
                                 'Choose Drop-Off Location',
                             style: AppTextStyles.custom(
-                              fontSize: 13,
+                              fontSize: 12, // Reduced from 13
                               fontWeight: FontWeight.w400,
                               color: widget.dropOffAddress != null
                                   ? AppColors.black
@@ -237,8 +237,8 @@ class _TypeSelectionBottomSheetState extends State<TypeSelectionBottomSheet> {
                         ),
                         SvgPicture.asset(
                           'assets/icons/location_pin.svg',
-                          width: 16,
-                          height: 16,
+                          width: 14, // Reduced from 16
+                          height: 14, // Reduced from 16
                           colorFilter: const ColorFilter.mode(
                             AppColors.black,
                             BlendMode.srcIn,
@@ -257,112 +257,106 @@ class _TypeSelectionBottomSheetState extends State<TypeSelectionBottomSheet> {
   }
 
   Widget _buildTypeToggle() {
-    return Row(
-      children: [
-        // Ride Button
-        Expanded(
-          child: InkWell(
-            onTap: () {
-              setState(() {
-                _selectedType = 'ride';
-              });
-            },
-            child: Container(
-              padding: const EdgeInsets.symmetric(vertical: 12),
-              decoration: BoxDecoration(
-                color: _selectedType == 'ride'
-                    ? AppColors.black
-                    : AppColors.transparent,
-                borderRadius: BorderRadius.circular(30),
-                border: Border.all(
+    return Container(
+      padding: const EdgeInsets.all(4), // Padding inside the gray container
+      decoration: BoxDecoration(
+        color: AppColors.background, // Gray background for the whole toggle
+        borderRadius: BorderRadius.circular(25),
+      ),
+      child: Row(
+        children: [
+          // Ride Button
+          Expanded(
+            child: InkWell(
+              onTap: () {
+                setState(() {
+                  _selectedType = 'ride';
+                });
+              },
+              child: Container(
+                padding: const EdgeInsets.symmetric(vertical: 10),
+                decoration: BoxDecoration(
                   color: _selectedType == 'ride'
-                      ? AppColors.black
-                      : AppColors.greyLight,
-                  width: 1,
+                      ? AppColors.black // Black background when selected
+                      : AppColors.transparent, // Transparent when not selected
+                  borderRadius: BorderRadius.circular(25),
                 ),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SvgPicture.asset(
-                    'assets/icons/red_car.svg',
-                    width: 24,
-                    height: 24,
-                  ),
-                  const SizedBox(width: 8),
-                  Text(
-                    'Ride',
-                    style: AppTextStyles.custom(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w600,
-                      color: _selectedType == 'ride'
-                          ? AppColors.primary
-                          : AppColors.black,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SvgPicture.asset(
+                      'assets/icons/red_car.svg',
+                      width: 28,
+                      height: 28,
                     ),
-                  ),
-                ],
+                    const SizedBox(width: 6),
+                    Text(
+                      'Ride',
+                      style: AppTextStyles.custom(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w600,
+                        color: _selectedType == 'ride'
+                            ? AppColors.primary // Yellow text when selected
+                            : AppColors.textSecondary, // Gray text when not selected
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
-        ),
-        const SizedBox(width: 12),
 
-        // Package Button
-        Expanded(
-          child: InkWell(
-            onTap: () {
-              setState(() {
-                _selectedType = 'package';
-              });
-            },
-            child: Container(
-              padding: const EdgeInsets.symmetric(vertical: 12),
-              decoration: BoxDecoration(
-                color: _selectedType == 'package'
-                    ? AppColors.black
-                    : AppColors.transparent,
-                borderRadius: BorderRadius.circular(30),
-                border: Border.all(
+          // Package Button
+          Expanded(
+            child: InkWell(
+              onTap: () {
+                setState(() {
+                  _selectedType = 'package';
+                });
+              },
+              child: Container(
+                padding: const EdgeInsets.symmetric(vertical: 10),
+                decoration: BoxDecoration(
                   color: _selectedType == 'package'
-                      ? AppColors.black
-                      : AppColors.greyLight,
-                  width: 1,
+                      ? AppColors.black // Black background when selected
+                      : AppColors.transparent, // Transparent when not selected
+                  borderRadius: BorderRadius.circular(25),
                 ),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SvgPicture.asset(
-                    'assets/icons/package.svg',
-                    width: 24,
-                    height: 24,
-                  ),
-                  const SizedBox(width: 8),
-                  Text(
-                    'Package',
-                    style: AppTextStyles.custom(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w600,
-                      color: _selectedType == 'package'
-                          ? AppColors.primary
-                          : AppColors.black,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SvgPicture.asset(
+                      'assets/icons/package.svg',
+                      width: 20,
+                      height: 20,
                     ),
-                  ),
-                ],
+                    const SizedBox(width: 6),
+                    Text(
+                      'Package',
+                      style: AppTextStyles.custom(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w600,
+                        color: _selectedType == 'package'
+                            ? AppColors.primary // Yellow text when selected
+                            : AppColors.textSecondary, // Gray text when not selected
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 
   Widget _buildCarOptions() {
     return Container(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(12), // Reduced from 16
       decoration: BoxDecoration(
         color: AppColors.white,
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(12), // Reduced from 16
         border: Border.all(
           color: AppColors.greyLight,
           width: 1,
@@ -376,14 +370,14 @@ class _TypeSelectionBottomSheetState extends State<TypeSelectionBottomSheet> {
             price: '\$80.00',
             value: 'mini',
           ),
-          const SizedBox(height: 12),
+          const SizedBox(height: 8), // Reduced from 12
           _buildCarOption(
             icon: 'assets/icons/orange_car.svg',
             name: 'Sedan Car',
             price: '\$100.00',
             value: 'sedan',
           ),
-          const SizedBox(height: 12),
+          const SizedBox(height: 8), // Reduced from 12
           _buildCarOption(
             icon: 'assets/icons/yellow_car.svg',
             name: 'SUV Car',
@@ -410,24 +404,24 @@ class _TypeSelectionBottomSheetState extends State<TypeSelectionBottomSheet> {
         });
       },
       child: Container(
-        padding: const EdgeInsets.all(12),
+        padding: const EdgeInsets.all(8), // Reduced from 12
         decoration: BoxDecoration(
           color: isSelected ? AppColors.background : AppColors.white,
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.circular(10), // Reduced from 12
         ),
         child: Row(
           children: [
             SvgPicture.asset(
               icon,
-              width: 40,
-              height: 40,
+              width: 28, // Reduced from 40
+              height: 28, // Reduced from 40
             ),
-            const SizedBox(width: 12),
+            const SizedBox(width: 10), // Reduced from 12
             Expanded(
               child: Text(
                 name,
                 style: AppTextStyles.custom(
-                  fontSize: 14,
+                  fontSize: 12, // Reduced from 14
                   fontWeight: FontWeight.w600,
                   color: AppColors.black,
                 ),
@@ -436,15 +430,15 @@ class _TypeSelectionBottomSheetState extends State<TypeSelectionBottomSheet> {
             Text(
               price,
               style: AppTextStyles.custom(
-                fontSize: 14,
+                fontSize: 12, // Reduced from 14
                 fontWeight: FontWeight.bold,
                 color: AppColors.black,
               ),
             ),
-            const SizedBox(width: 12),
+            const SizedBox(width: 10), // Reduced from 12
             Container(
-              width: 24,
-              height: 24,
+              width: 20, // Reduced from 24
+              height: 20, // Reduced from 24
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 border: Border.all(
@@ -456,8 +450,8 @@ class _TypeSelectionBottomSheetState extends State<TypeSelectionBottomSheet> {
               child: isSelected
                   ? Center(
                 child: Container(
-                  width: 12,
-                  height: 12,
+                  width: 10, // Reduced from 12
+                  height: 10, // Reduced from 12
                   decoration: const BoxDecoration(
                     shape: BoxShape.circle,
                     color: AppColors.black,

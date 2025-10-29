@@ -110,7 +110,7 @@ class RideHistoryCard extends StatelessWidget {
                                     driverName,
                                     style: AppTextStyles.bodyLarge.copyWith(
                                       fontWeight: FontWeight.w600,
-                                      fontSize: 15,
+                                      fontSize: 14,
                                     ),
                                   ),
                                   const SizedBox(height: 3),

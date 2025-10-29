@@ -1,14 +1,29 @@
 String lightMapTheme = '''
 [
     {
+        "featureType": "all",
+        "elementType": "labels.text.fill",
+        "stylers": [
+            {
+                "color": "#666666"
+            }
+        ]
+    },
+    {
+        "featureType": "all",
+        "elementType": "labels.text.stroke",
+        "stylers": [
+            {
+                "color": "#ffffff"
+            }
+        ]
+    },
+    {
         "featureType": "landscape.man_made",
         "elementType": "geometry",
         "stylers": [
             {
                 "color": "#f5f5f5"
-            },
-            {
-                "saturation": "-100"
             }
         ]
     },
@@ -32,6 +47,15 @@ String lightMapTheme = '''
     },
     {
         "featureType": "poi",
+        "elementType": "geometry",
+        "stylers": [
+            {
+                "color": "#eeeeee"
+            }
+        ]
+    },
+    {
+        "featureType": "poi",
         "elementType": "labels",
         "stylers": [
             {
@@ -41,8 +65,11 @@ String lightMapTheme = '''
     },
     {
         "featureType": "poi.attraction",
-        "elementType": "all",
+        "elementType": "geometry",
         "stylers": [
+            {
+                "color": "#eeeeee"
+            },
             {
                 "visibility": "on"
             }
@@ -77,8 +104,11 @@ String lightMapTheme = '''
     },
     {
         "featureType": "poi.sports_complex",
-        "elementType": "all",
+        "elementType": "geometry",
         "stylers": [
+            {
+                "color": "#e8e8e8"
+            },
             {
                 "visibility": "on"
             }
@@ -90,6 +120,9 @@ String lightMapTheme = '''
         "stylers": [
             {
                 "visibility": "on"
+            },
+            {
+                "color": "#dddddd"
             }
         ]
     },
@@ -108,9 +141,6 @@ String lightMapTheme = '''
         "stylers": [
             {
                 "color": "#ffffff"
-            },
-            {
-                "saturation": "-100"
             }
         ]
     },

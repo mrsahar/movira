@@ -3,10 +3,6 @@ import 'package:movira/screens/home/history/widget/ride_history_card.dart';
 import 'package:movira/utils/constants/colors.dart';
 import 'package:movira/utils/text_style.dart';
 
-import 'package:flutter/material.dart';
-import 'package:movira/utils/constants/colors.dart';
-import 'package:movira/utils/text_style.dart';
-
 class HistoryCompletedScreen extends StatelessWidget {
   const HistoryCompletedScreen({super.key});
 

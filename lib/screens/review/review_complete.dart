@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:movira/screens/home/settings_screen.dart';
+import 'package:movira/screens/home/main_screen.dart';
 import 'package:movira/utils/constants/colors.dart';
 import 'package:movira/utils/text_style.dart';
 
@@ -58,7 +58,7 @@ class RatingSubmittedScreen extends StatelessWidget {
                     onPressed: () {
                       // Navigate to home screen
                       // Get.offAllNamed(Routes.home);
-                      Get.off(SettingsScreen());
+                      Get.off(MainNavigationScreen());
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: AppColors.primary,
